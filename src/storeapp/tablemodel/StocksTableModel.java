@@ -56,7 +56,6 @@ public class StocksTableModel extends AbstractTableModel {
                 stock.setQuantity((Integer)aValue);
             case 3 ->
                 stock.setPrice(Double.parseDouble((String)aValue));
-                //stock.setPrice((Double)aValue);
             case 4 ->
                 stock.setManufacturer((String)aValue);
         }

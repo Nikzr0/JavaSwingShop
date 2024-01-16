@@ -32,20 +32,6 @@ public class StoresTableModel extends AbstractTableModel {
         return columnNames[column];
     }
 
-
-    @Override
-    public Object getValueAt(int rowIndex, int columnIndex) {
-        Store store = stores.get(rowIndex);
-
-        switch (columnIndex) {
-            case 0:
-                return store.getName();
-            case 1:
-                return store.getAddress();
-            default:
-                return null;
-        }
-    }
     public void addStore(Store store) {
         try {
             store.setName(store.getName());
@@ -70,5 +56,40 @@ public class StoresTableModel extends AbstractTableModel {
         } else {
             throw new IndexOutOfBoundsException("Invalid store index: " + rowIndex);
         }
+    }
+
+    @Override
+    public Object getValueAt(int rowIndex, int columnIndex) {
+        Store store = stores.get(rowIndex);
+
+        switch (columnIndex) {
+            case 0:
+                return store.getName();
+            case 1:
+                return store.getAddress();
+            default:
+                return null;
+        }
+    }
+
+    @Override
+    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+        Store store = stores.get(rowIndex);
+
+        switch (columnIndex) {
+            case 0 ->
+                    store.setName((String)aValue);
+            case 1 ->
+                    store.setAddress((String)aValue);
+        }
+
+        fireTableCellUpdated(rowIndex, columnIndex);
+    }
+
+    @Override
+    public Class<?> getColumnClass(int columnIndex) {
+        return switch (columnIndex) {
+            default -> String.class;
+        };
     }
 }

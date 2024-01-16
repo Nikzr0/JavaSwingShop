@@ -82,12 +82,10 @@ public class MainFrame extends JFrame {
             }
         });
 
-
-        // TODO ->understand the meaning of the code
         removeStockButton.addActionListener(e -> {
             var row = stocksTable.getSelectedRow();
 
-            var result = JOptionPane.showConfirmDialog(null, "Сигурен?", "Confirmation", JOptionPane.YES_NO_OPTION);
+            var result = JOptionPane.showConfirmDialog(null, "This stock will be deleted!", "Confirmation", JOptionPane.YES_NO_OPTION);
             if (result == JOptionPane.YES_OPTION)
                 stocksTableModel.removeStock(row);
         });
