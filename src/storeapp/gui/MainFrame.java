@@ -1,5 +1,6 @@
 package storeapp.gui;
 
+import storeapp.App;
 import storeapp.model.Stock;
 import storeapp.model.Store;
 import storeapp.tablemodel.StocksTableModel;
@@ -18,7 +19,7 @@ public class MainFrame extends JFrame {
     private JTable storesTable;
     private JTextField storeFieldName;
     private JButton removeStoreButton;
-    private JComboBox stockCategoryComboBox;
+    private JComboBox<String> stockCategoryComboBox;
     private JSpinner stockQuantitySpinner;
     private JTextField stockPriceField;
     private JTextField stockNameField;
@@ -27,10 +28,13 @@ public class MainFrame extends JFrame {
     private JButton removeStockButton;
     private JTable stocksTable;
 
+    private StocksTableModel stocksTableModel;
+
     public MainFrame(List<Store> stores) {
         var storesTableModel = new StoresTableModel(stores);
-
         storesTable.setModel(storesTableModel);
+
+        seedCategoriesComboBox();
 
         addStoreButton.addActionListener(e -> {
             String storeName = storeNameField.getText();
@@ -41,32 +45,28 @@ public class MainFrame extends JFrame {
             storesTableModel.addStore(newStore);
         });
 
-        stocksTable.getSelectionModel().addListSelectionListener(e -> {
+        removeStoreButton.addActionListener(e -> {
+            var row = storesTable.getSelectedRow();
+            storesTableModel.removeStoreAt(row);
+        });
+
+        storesTable.getSelectionModel().addListSelectionListener(e -> {
             int selectedStoreIndex = storesTable.getSelectedRow();
             if (selectedStoreIndex >= 0) {
                 Store selectedStore = storesTableModel.getStoreAt(selectedStoreIndex);
 
                 List<Stock> stocks = selectedStore.getStockList();
 
-                var stocksTableModel = new StocksTableModel(stocks);
+                stocksTableModel = new StocksTableModel(stocks);
 
                 stocksTable.setModel(stocksTableModel);
             }
         });
 
-        removeStoreButton.addActionListener(e -> {
-            var row = storesTable.getSelectedRow();
-            storesTableModel.removeStoreAt(row);
-        });
-
-
-
         addStockButton.addActionListener(e -> {
             int selectedStoreIndex = storesTable.getSelectedRow();
 
             if (selectedStoreIndex >= 0) {
-                Store selectedStore = storesTableModel.getStoreAt(selectedStoreIndex);
-
                 String stockName = stockNameField.getText();
                 String stockCategory = (String) stockCategoryComboBox.getSelectedItem();
                 int stockQuantity = (int) stockQuantitySpinner.getValue();
@@ -75,7 +75,6 @@ public class MainFrame extends JFrame {
 
                 Stock newStock = new Stock(stockName, stockCategory, stockQuantity, stockPrice, stockManufacturer);
 
-                StocksTableModel stocksTableModel = (StocksTableModel) stocksTable.getModel();
                 stocksTableModel.addStock(newStock);
 
             } else {
@@ -83,14 +82,31 @@ public class MainFrame extends JFrame {
             }
         });
 
+
+        // TODO ->understand the meaning of the code
+        removeStockButton.addActionListener(e -> {
+            var row = stocksTable.getSelectedRow();
+
+            var result = JOptionPane.showConfirmDialog(null, "Сигурен?", "Confirmation", JOptionPane.YES_NO_OPTION);
+            if (result == JOptionPane.YES_OPTION)
+                stocksTableModel.removeStock(row);
+        });
+
+
         setContentPane(contentPane);
+        pack();
+
         setLocationRelativeTo(null);
         setVisible(true);
-        pack();
+
 
     }
 
-    private void createUIComponents() {
-        // TODO: place custom component creation code here
+    private void seedCategoriesComboBox() {
+        for (var category : App.categories) {
+            stockCategoryComboBox.addItem(category);
+        }
+
+        stockCategoryComboBox.setSelectedItem(null);
     }
 }

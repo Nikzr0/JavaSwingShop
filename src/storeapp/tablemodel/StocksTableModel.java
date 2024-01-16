@@ -7,7 +7,7 @@ import java.util.List;
 
 public class StocksTableModel extends AbstractTableModel {
     private final List<Stock> stocks;
-    private final String[] columnNames = {"Name", "Category", "Price", "Quantity"};
+    private final String[] columnNames = {"Name", "Category", "Quantity", "Price", "Manufacturer"};
 
     public StocksTableModel(List<Stock> stocks) {
         this.stocks = stocks;
@@ -44,15 +44,41 @@ public class StocksTableModel extends AbstractTableModel {
     }
 
     @Override
+    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+        Stock stock = stocks.get(rowIndex);
+
+        switch (columnIndex) {
+            case 0 ->
+                stock.setName((String)aValue);
+            case 1 ->
+                stock.setCategory((String)aValue);
+            case 2 ->
+                stock.setQuantity((Integer)aValue);
+            case 3 ->
+                stock.setPrice(Double.parseDouble((String)aValue));
+                //stock.setPrice((Double)aValue);
+            case 4 ->
+                stock.setManufacturer((String)aValue);
+        }
+
+        fireTableCellUpdated(rowIndex, columnIndex);
+    }
+
+    @Override
+    public Class<?> getColumnClass(int columnIndex) {
+        return switch (columnIndex) {
+            case 2 -> Integer.class;
+            default -> String.class;
+        };
+    }
+
+    @Override
     public String getColumnName(int columnIndex) {
         return columnNames[columnIndex];
     }
 
     public void addStock(Stock stock) {
         try {
-            stock.setName(stock.getName());
-            stock.setQuantity(stock.getQuantity());
-            stock.setPrice(stock.getPrice());
             stocks.add(stock);
             fireTableRowsInserted(stocks.size() - 1, stocks.size() - 1);
         } catch (IllegalArgumentException e) {
@@ -65,5 +91,10 @@ public class StocksTableModel extends AbstractTableModel {
             stocks.remove(rowIndex);
             fireTableRowsDeleted(rowIndex, rowIndex);
         }
+    }
+
+    @Override
+    public boolean isCellEditable(int rowIndex, int columnIndex) {
+        return true;
     }
 }
