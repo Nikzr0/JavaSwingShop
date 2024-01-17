@@ -82,6 +82,7 @@ public class StocksTableModel extends AbstractTableModel {
             stock.setName(stock.getName());
             stock.setQuantity(stock.getQuantity());
             stock.setPrice(stock.getPrice());
+            stock.setManufacturer(stock.getManufacturer());
 
             stocks.add(stock);
             fireTableRowsInserted(stocks.size() - 1, stocks.size() - 1);

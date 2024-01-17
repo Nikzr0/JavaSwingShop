@@ -10,16 +10,10 @@ public class Stock {
     private String manufacturer;
 
     public Stock(String name, String category, int quantity, double price, String manufacturer) {
-        try {
-            setName(name);
-            setQuantity(quantity);
-            setPrice(price);
-        } catch (IllegalArgumentException e) {
-            // Display error message in a pop-up window
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-
-        this.category = category;
+        setName(name);
+        setQuantity(quantity);
+        setPrice(price);
+        setCategory(category);
         setManufacturer(manufacturer);
     }
 
@@ -48,10 +42,10 @@ public class Stock {
     }
 
     public void setQuantity(int quantity) {
-        if (quantity >= 1 && quantity <= 1000) {
+        if (quantity >= 1 && quantity <= 100) {
             this.quantity = quantity;
         } else {
-            throw new IllegalArgumentException("Quantity should be between 1 and 1000");
+            throw new IllegalArgumentException("Quantity should be between 1 and 100");
         }
     }
 
@@ -63,7 +57,7 @@ public class Stock {
         if (price >= 0 && price <= 1000) {
             this.price = price;
         } else {
-            throw new IllegalArgumentException("Price should be between 0 and 1,000");
+            throw new IllegalArgumentException("Price should be between 0 and 10,000");
         }
     }
 
@@ -72,6 +66,11 @@ public class Stock {
     }
 
     public void setManufacturer(String manufacturer) {
-        this.manufacturer = manufacturer;
+        if (manufacturer != null && manufacturer.length() >= 5 && manufacturer.length() <= 50) {
+            this.manufacturer = manufacturer;
+        } else {
+            throw new IllegalArgumentException("Manufacturer must be between 5 and 50 characters long");
+        }
     }
+
 }

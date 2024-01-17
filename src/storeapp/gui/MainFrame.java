@@ -108,6 +108,6 @@ public class MainFrame extends JFrame {
             stockCategoryComboBox.addItem(category);
         }
 
-        stockCategoryComboBox.setSelectedItem(null);
+//        stockCategoryComboBox.setSelectedItem(null);
     }
 }
