@@ -92,4 +92,9 @@ public class StoresTableModel extends AbstractTableModel {
             default -> String.class;
         };
     }
+
+    @Override
+    public boolean isCellEditable(int rowIndex, int columnIndex) {
+        return true;
+    }
 }

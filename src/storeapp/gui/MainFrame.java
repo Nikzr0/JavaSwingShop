@@ -52,10 +52,6 @@ public class MainFrame extends JFrame {
             if (result == JOptionPane.YES_OPTION)
                 storesTableModel.removeStoreAt(row);
         });
-//        removeStoreButton.addActionListener(e -> {
-//            var row = storesTable.getSelectedRow();
-//            storesTableModel.removeStoreAt(row);
-//        });
 
         storesTable.getSelectionModel().addListSelectionListener(e -> {
             int selectedStoreIndex = storesTable.getSelectedRow();
@@ -94,7 +90,7 @@ public class MainFrame extends JFrame {
 
             var result = JOptionPane.showConfirmDialog(null, "This stock will be deleted!", "Confirmation", JOptionPane.YES_NO_OPTION);
             if (result == JOptionPane.YES_OPTION)
-                stocksTableModel.removeStock(row);
+                stocksTableModel.removeStockAt(row);
         });
 
 

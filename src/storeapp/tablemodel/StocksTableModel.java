@@ -79,25 +79,22 @@ public class StocksTableModel extends AbstractTableModel {
 
     public boolean addStock(Stock stock) {
         try {
-            // Validate stock before adding
-            stock.setName(stock.getName());  // This will throw an exception if validation fails
-            stock.setQuantity(stock.getQuantity());  // This will throw an exception if validation fails
-            stock.setPrice(stock.getPrice());  // This will throw an exception if validation fails
+            stock.setName(stock.getName());
+            stock.setQuantity(stock.getQuantity());
+            stock.setPrice(stock.getPrice());
 
-            // If all validations pass, then add the stock to the list
             stocks.add(stock);
             fireTableRowsInserted(stocks.size() - 1, stocks.size() - 1);
 
-            return true;  // Indicate successful addition
+            return true;
         } catch (IllegalArgumentException e) {
-            // Display an error message to the user if validation fails
             System.err.println("Validation error: " + e.getMessage());
-            return false;  // Indicate unsuccessful addition
+            return false;
         }
     }
 
 
-    public void removeStock(int rowIndex) {
+    public void removeStockAt(int rowIndex) {
         if (rowIndex >= 0 && rowIndex < stocks.size()) {
             stocks.remove(rowIndex);
             fireTableRowsDeleted(rowIndex, rowIndex);
