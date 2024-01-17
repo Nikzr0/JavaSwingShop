@@ -54,7 +54,7 @@ public class Stock {
     }
 
     public void setPrice(double price) {
-        if (price >= 0 && price <= 1000) {
+        if (price >= 0 && price <= 10000) {
             this.price = price;
         } else {
             throw new IllegalArgumentException("Price should be between 0 and 10,000");

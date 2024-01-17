@@ -49,16 +49,11 @@ public class StocksTableModel extends AbstractTableModel {
         Stock stock = stocks.get(rowIndex);
 
         switch (columnIndex) {
-            case 0 ->
-                stock.setName((String)aValue);
-            case 1 ->
-                stock.setCategory((String)aValue);
-            case 2 ->
-                stock.setQuantity((Integer)aValue);
-            case 3 ->
-                stock.setPrice(Double.parseDouble((String)aValue));
-            case 4 ->
-                stock.setManufacturer((String)aValue);
+            case 0 -> stock.setName((String) aValue);
+            case 1 -> stock.setCategory((String) aValue);
+            case 2 -> stock.setQuantity((Integer) aValue);
+            case 3 -> stock.setPrice(Double.parseDouble((String) aValue));
+            case 4 -> stock.setManufacturer((String) aValue);
         }
 
         fireTableCellUpdated(rowIndex, columnIndex);
@@ -79,16 +74,13 @@ public class StocksTableModel extends AbstractTableModel {
 
     public boolean addStock(Stock stock) {
         try {
-            stock.setName(stock.getName());
-            stock.setQuantity(stock.getQuantity());
-            stock.setPrice(stock.getPrice());
             stock.setManufacturer(stock.getManufacturer());
 
             stocks.add(stock);
             fireTableRowsInserted(stocks.size() - 1, stocks.size() - 1);
 
             return true;
-        } catch (IllegalArgumentException e) {
+        } catch (Exception e) {
             System.err.println("Validation error: " + e.getMessage());
             return false;
         }

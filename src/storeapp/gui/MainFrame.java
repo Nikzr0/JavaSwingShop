@@ -76,9 +76,13 @@ public class MainFrame extends JFrame {
                 double stockPrice = Double.parseDouble(stockPriceField.getText());
                 String stockManufacturer = stockManufacturerField.getText();
 
-                Stock newStock = new Stock(stockName, stockCategory, stockQuantity, stockPrice, stockManufacturer);
+                try {
+                    Stock newStock = new Stock(stockName, stockCategory, stockQuantity, stockPrice, stockManufacturer);
 
-                stocksTableModel.addStock(newStock);
+                    stocksTableModel.addStock(newStock);
+                } catch (Exception exception) {
+                    JOptionPane.showMessageDialog(null, exception.getMessage());
+                }
 
             } else {
                 JOptionPane.showMessageDialog(MainFrame.this, "Please select a store first.", "Error", JOptionPane.ERROR_MESSAGE);
