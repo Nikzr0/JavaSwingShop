@@ -8,9 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class App {
-    private static List<Store> stores;
+    public static List<Store> stores;
     public static List<String> categories;
-
 
     public static void main(String[] args) {
         stores =  new ArrayList<>();

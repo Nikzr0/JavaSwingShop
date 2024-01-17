@@ -7,8 +7,6 @@ import storeapp.tablemodel.StocksTableModel;
 import storeapp.tablemodel.StoresTableModel;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +25,8 @@ public class MainFrame extends JFrame {
     private JButton addStockButton;
     private JButton removeStockButton;
     private JTable stocksTable;
+    private JLabel inputStores;
+    private JComboBox storesComboBox;
 
     private StocksTableModel stocksTableModel;
 
@@ -35,15 +35,28 @@ public class MainFrame extends JFrame {
         storesTable.setModel(storesTableModel);
 
         seedCategoriesComboBox();
+//        seedStoresComboBox();
 
         addStoreButton.addActionListener(e -> {
+
+//            String selectedName = (String) storeInputStoresButton();
+
+//            if (selectedName != null) {
+//                // TODO add stock
+//            } else {
+//                System.out.println("No string selected");
+//            }
+
+
             String storeName = storeNameField.getText();
             String storeAddress = storeFieldName.getText();
 
             Store newStore = new Store(storeName, storeAddress, new ArrayList<>());
+            storesComboBox.addItem(storeName);
 
             storesTableModel.addStore(newStore);
         });
+
 
         removeStoreButton.addActionListener(e -> {
             var row = storesTable.getSelectedRow();

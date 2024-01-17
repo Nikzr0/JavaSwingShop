@@ -58,6 +58,15 @@ public class StoresTableModel extends AbstractTableModel {
         }
     }
 
+    public Store getStoreByName(String name) {
+        for (Store store : stores) {
+            if (store.getName().equals(name)) {
+                return store;
+            }
+        }
+        return null;
+    }
+
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Store store = stores.get(rowIndex);
