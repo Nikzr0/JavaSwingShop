@@ -1,5 +1,6 @@
 package storeapp.model;
 
+import javax.swing.*;
 import java.util.List;
 
 public class Store {
@@ -8,8 +9,13 @@ public class Store {
     private List<Stock> stockList;
 
     public Store(String name, String address, List<Stock> stockList) {
-        setName(name);
-        setAddress(address);
+        try {
+            setName(name);
+            setAddress(address);
+        } catch (IllegalArgumentException e) {
+            // Display error message in a pop-up window
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
         this.stockList = stockList;
     }
 

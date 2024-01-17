@@ -2,6 +2,7 @@ package storeapp.tablemodel;
 
 import storeapp.model.Stock;
 
+import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
@@ -76,14 +77,25 @@ public class StocksTableModel extends AbstractTableModel {
         return columnNames[columnIndex];
     }
 
-    public void addStock(Stock stock) {
+    public boolean addStock(Stock stock) {
         try {
+            // Validate stock before adding
+            stock.setName(stock.getName());  // This will throw an exception if validation fails
+            stock.setQuantity(stock.getQuantity());  // This will throw an exception if validation fails
+            stock.setPrice(stock.getPrice());  // This will throw an exception if validation fails
+
+            // If all validations pass, then add the stock to the list
             stocks.add(stock);
             fireTableRowsInserted(stocks.size() - 1, stocks.size() - 1);
+
+            return true;  // Indicate successful addition
         } catch (IllegalArgumentException e) {
+            // Display an error message to the user if validation fails
             System.err.println("Validation error: " + e.getMessage());
+            return false;  // Indicate unsuccessful addition
         }
     }
+
 
     public void removeStock(int rowIndex) {
         if (rowIndex >= 0 && rowIndex < stocks.size()) {

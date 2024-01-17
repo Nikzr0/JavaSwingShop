@@ -47,8 +47,15 @@ public class MainFrame extends JFrame {
 
         removeStoreButton.addActionListener(e -> {
             var row = storesTable.getSelectedRow();
-            storesTableModel.removeStoreAt(row);
+
+            var result = JOptionPane.showConfirmDialog(null, "This store will be deleted!", "Confirmation", JOptionPane.YES_NO_OPTION);
+            if (result == JOptionPane.YES_OPTION)
+                storesTableModel.removeStoreAt(row);
         });
+//        removeStoreButton.addActionListener(e -> {
+//            var row = storesTable.getSelectedRow();
+//            storesTableModel.removeStoreAt(row);
+//        });
 
         storesTable.getSelectionModel().addListSelectionListener(e -> {
             int selectedStoreIndex = storesTable.getSelectedRow();

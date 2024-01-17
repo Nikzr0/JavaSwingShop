@@ -1,5 +1,7 @@
 package storeapp.model;
 
+import javax.swing.*;
+
 public class Stock {
     private String name;
     private String category;
@@ -8,13 +10,16 @@ public class Stock {
     private String manufacturer;
 
     public Stock(String name, String category, int quantity, double price, String manufacturer) {
-        this.name = name;
+        try {
+            setName(name);
+            setQuantity(quantity);
+            setPrice(price);
+        } catch (IllegalArgumentException e) {
+            // Display error message in a pop-up window
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
         this.category = category;
-
-        setQuantity(quantity);
-        setPrice(price);
-        setName(name);
-
         setManufacturer(manufacturer);
     }
 
